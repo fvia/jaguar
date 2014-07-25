@@ -2,3 +2,6 @@ ENV/
 secrets.txt
 *.pyc
 *.swp
+files/
+links/
+

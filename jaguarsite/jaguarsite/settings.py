@@ -1,3 +1,8 @@
+# jaguar settings
+
+JAGUAR_FILES = '/home/fvia/prj/jaguar/files/'
+JAGUAR_LINKS = '/home/fvia/prj/jaguar/links/'
+
 """
 Django settings for jaguarsite project.
 
@@ -71,9 +76,9 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-GB'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/London'
 
 USE_I18N = True
 
