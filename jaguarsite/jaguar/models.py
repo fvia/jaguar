@@ -4,7 +4,8 @@ import uuid
 
 
 from django.db import models
-from django.db.models.signals import pre_init, post_init
+from django.db.models.signals import pre_init, post_init, post_delete
+from jaguarsite.settings import JAGUAR_FILES, JAGUAR_LINKS
 
 def strUuid():
     return str( uuid.uuid4())
@@ -16,6 +17,7 @@ class Customer(models.Model):
     def __unicode__(self):
         return self.name
 
+#################################
 class Archive(models.Model):
     filename = models.CharField( max_length=200 )
     status  = models.CharField( max_length=50, default = ''  )  # 'OK' | 'NO FILE'
@@ -23,8 +25,15 @@ class Archive(models.Model):
     def __unicode__(self):
         return "{0} - {1}".format( self.filename, self.status)
 
+def ArchivePostDelete( sender, **kwargs):
+    instance = kwargs.get('instance')
+    full_name = os.path.join( JAGUAR_FILES ,instance.filename )
+    #print full_name
+    os.unlink( full_name   )
 
+post_delete.connect( ArchivePostDelete ,Archive)
 
+#################################
 class Link(models.Model):
     archive = models.ForeignKey(Archive)
     customer = models.ForeignKey(Customer)
@@ -33,8 +42,15 @@ class Link(models.Model):
     uuid =  models.CharField(max_length=36,default= lambda: str(uuid.uuid4()))
     status  = models.CharField( max_length=50, default = 'NEW'  )  #    'OK' | 'NO LINK'
 
+    @property
+    def url(self):
+      return "http://{}/links/{}".format("localhost",self.name_link())
+
     def __unicode__(self):
-        return "{} - {} - {} - {} - {}".format( self.customer.name, self.archive.filename, self.expiryDate, self.uuid,self.status)
+        return "{} - {} - {} - {} - {} - {}".format(
+            self.customer.name, self.archive.filename,
+            self.expiryDate, self.uuid,self.status,
+            self.url)
         #return "{} - {} - {} - {} - {}".format( "paco", "c:\\", self.expiryDate, self.uuid,self.statusname
 
     def name_link( self ):
