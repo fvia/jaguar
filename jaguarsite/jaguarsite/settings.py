@@ -1,7 +1,7 @@
 # jaguar settings
 
-JAGUAR_FILES = '/home/fvia/prj/jaguar/files/'
-JAGUAR_LINKS = '/home/fvia/prj/jaguar/links/'
+JAGUAR_FILES = '/srv/jaguar/files/'
+JAGUAR_LINKS = '/srv/jaguar/links/'
 
 
 
@@ -94,3 +94,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
+
+

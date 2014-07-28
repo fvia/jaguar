@@ -4,7 +4,8 @@ import uuid
 
 
 from django.db import models
-from django.db.models.signals import pre_init, post_init, post_delete
+from django.db.models.signals import pre_init, post_init, post_delete, post_save
+
 from jaguarsite.settings import JAGUAR_FILES, JAGUAR_LINKS
 
 def strUuid():
@@ -61,7 +62,28 @@ class Link(models.Model):
         (name,ext) = os.path.splitext( self.archive.filename )
         return "{}.{}{}".format( name,self.uuid,ext )   #ext ja porta el punt
 
-##################
+def LinkPostSave( sender, **kwargs):
+    instance = kwargs.get('instance')
+    source = os.path.join( JAGUAR_FILES ,instance.archive.filename )
+    link_name = os.path.join( JAGUAR_LINKS ,instance.name_link() )
+    if not os.path.exists(link_name ):
+        os.symlink(source, link_name)
+        instance.status = 'OK'
+        instance.save()
+
+
+def LinkPostDelete( sender, **kwargs):
+    instance = kwargs.get('instance')
+    full_name = os.path.join( JAGUAR_LINKS , instance.name_link() )
+    #print full_name
+    try:
+        os.unlink( full_name   )
+    except:
+        pass
+
+post_delete.connect( LinkPostDelete ,Link)
+post_save.connect( LinkPostSave ,Link)
+################## git@github.com:fvia/jaguar.git
 """
 def extraInitLink(sender,*args,**kwargs):
     instance = kwargs.get('instance')
