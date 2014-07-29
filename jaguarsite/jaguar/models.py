@@ -6,7 +6,7 @@ import uuid
 from django.db import models
 from django.db.models.signals import pre_init, post_init, post_delete, post_save
 
-from jaguarsite.settings import JAGUAR_FILES, JAGUAR_LINKS
+from jaguarsite.settings import JAGUAR_FILES, JAGUAR_LINKS, JAGUAR_SITE
 
 def strUuid():
     return str( uuid.uuid4())
@@ -45,7 +45,7 @@ class Link(models.Model):
 
     @property
     def url(self):
-      return "http://{}/links/{}".format("localhost",self.name_link())
+      return "http://{}/links/{}".format(JAGUAR_SITE,self.name_link())
 
     def __unicode__(self):
         return "{} - {} - {} - {} - {} - {}".format(
@@ -63,6 +63,8 @@ class Link(models.Model):
         return "{}.{}{}".format( name,self.uuid,ext )   #ext ja porta el punt
 
 def LinkPostSave( sender, **kwargs):
+    """ after saving a Link if not exist a simbolic link to the file, its created
+    """
     instance = kwargs.get('instance')
     source = os.path.join( JAGUAR_FILES ,instance.archive.filename )
     link_name = os.path.join( JAGUAR_LINKS ,instance.name_link() )
