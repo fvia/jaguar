@@ -2,7 +2,7 @@
 
 JAGUAR_FILES = '/srv/jaguar/files/'
 JAGUAR_LINKS = '/srv/jaguar/links/'
-JAGUAR_SITE  = 'http://download.efit-v.com/'    # used for building the url of links
+JAGUAR_SITE  = 'download.efit-v.com/'    # used for building the url of links
 
 """
 Django settings for jaguarsite project.
