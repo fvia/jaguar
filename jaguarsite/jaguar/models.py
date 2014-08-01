@@ -11,6 +11,7 @@ from jaguarsite.settings import JAGUAR_FILES, JAGUAR_LINKS, JAGUAR_SITE
 def strUuid():
     return str( uuid.uuid4())
 
+################################
 
 class Customer(models.Model):
     name = models.CharField(max_length=200)
@@ -19,6 +20,7 @@ class Customer(models.Model):
         return self.name
 
 #################################
+
 class Archive(models.Model):
     filename = models.CharField( max_length=200 )
     status  = models.CharField( max_length=50, default = ''  )  # 'OK' | 'NO FILE'
@@ -86,6 +88,17 @@ def LinkPostDelete( sender, **kwargs):
 
 post_delete.connect( LinkPostDelete ,Link)
 post_save.connect( LinkPostSave ,Link)
+
+###################################################
+
+class LinkHistory(models.Model):
+    link = models.ForeignKey(Link)
+    when = models.DateField()
+    ip   = models.GenericIPAddressField()
+
+    def __unicode__(self):
+        return "{} {}".format(self.when,self.ip)
+
 ################## git@github.com:fvia/jaguar.git
 """
 def extraInitLink(sender,*args,**kwargs):

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from jaguar.models import Customer, Archive, Link
+from jaguar.models import Customer, Archive, Link, LinkHistory
 
 # Register your models here.
 
@@ -17,3 +17,7 @@ class LinkAdmin(admin.ModelAdmin):
 
 #admin.site.register(Link)
 admin.site.register(Link,LinkAdmin)
+
+
+
+admin.site.register(LinkHistory)
