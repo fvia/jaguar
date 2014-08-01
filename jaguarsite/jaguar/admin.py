@@ -10,9 +10,9 @@ admin.site.register(Archive)
 
 
 class LinkAdmin(admin.ModelAdmin):
-    fields = [ 'archive','customer','expiryDate']
-    list_display = ['archive','customer','expiryDate','url' ]
-    list_filter = ['expiryDate']
+    fields = [ 'archive','customer','enabled']
+    list_display = ['archive','customer','enabled','url' ]
+    list_filter = ['enabled']
 
 
 #admin.site.register(Link)

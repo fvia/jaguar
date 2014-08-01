@@ -38,7 +38,8 @@ post_delete.connect( ArchivePostDelete ,Archive)
 class Link(models.Model):
     archive = models.ForeignKey(Archive)
     customer = models.ForeignKey(Customer)
-    expiryDate = models.DateField()
+    enabled = models.BooleanField( default= True )
+    #expiryDate = models.DateField()
     # uuid hex format i.e. 'd8e57661-7697-4a18-9067-bba5cad0f6dc'
     uuid =  models.CharField(max_length=36,default= lambda: str(uuid.uuid4()))
     status  = models.CharField( max_length=50, default = 'NEW'  )  #    'OK' | 'NO LINK'
@@ -48,9 +49,9 @@ class Link(models.Model):
       return "http://{}/links/{}".format(JAGUAR_SITE,self.name_link())
 
     def __unicode__(self):
-        return "{} - {} - {} - {} - {} - {}".format(
+        return "{} - {} - {} - {} - {}".format(
             self.customer.name, self.archive.filename,
-            self.expiryDate, self.uuid,self.status,
+            self.uuid,self.status,
             self.url)
         #return "{} - {} - {} - {} - {}".format( "paco", "c:\\", self.expiryDate, self.uuid,self.statusname
 

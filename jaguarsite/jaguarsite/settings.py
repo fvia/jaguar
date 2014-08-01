@@ -4,6 +4,8 @@ JAGUAR_FILES = '/srv/jaguar/files/'
 JAGUAR_LINKS = '/srv/jaguar/links/'
 JAGUAR_SITE  = 'download.efit-v.com/'    # used for building the url of links
 
+STATIC_ROOT = '/srv/jaguar/static/'  # remember to run manage.py collectstatic
+
 """
 Django settings for jaguarsite project.
 
@@ -92,7 +94,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/jaguar/static/'
 
 
 try:
