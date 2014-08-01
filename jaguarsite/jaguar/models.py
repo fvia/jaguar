@@ -43,7 +43,7 @@ class Link(models.Model):
     enabled = models.BooleanField( default= True )
     #expiryDate = models.DateField()
     # uuid hex format i.e. 'd8e57661-7697-4a18-9067-bba5cad0f6dc'
-    uuid =  models.CharField(max_length=36,default= lambda: str(uuid.uuid4()))
+    uuid =  models.CharField(max_length=36,db_index=True,default= lambda: str(uuid.uuid4()))
     status  = models.CharField( max_length=50, default = 'NEW'  )  #    'OK' | 'NO LINK'
 
     @property
@@ -93,7 +93,7 @@ post_save.connect( LinkPostSave ,Link)
 
 class LinkHistory(models.Model):
     link = models.ForeignKey(Link)
-    when = models.DateField()
+    when = models.DateTimeField(db_index=True)
     ip   = models.GenericIPAddressField()
 
     def __unicode__(self):

@@ -24,15 +24,26 @@ import datetime
 """
 
 from jaguar.models import Archive, Link, LinkHistory
-
 print Archive.objects.all()
 
+
+#Date of latest log added
+try:
+    last_link = LinkHistory.objects.latest('when')
+    when_was_added_last_log = last_link.when
+except:
+    when_was_added_last_log = datetime.datetime(2000,1,1)
+
+
+print "===="
+print when_was_added_last_log
+print type(when_was_added_last_log)
+print "===="
 """
 Reading from the apache logs if finds downloads from  /links/*
 stores in a database time, ip using as a key the uuid in the file name
 """
 
-DATABASE = 'jaguar'
 LOG =  '/var/log/apache2/access.log'
 
 #regex = '([(\d\.)]+) - - \[(.*?)\] "(.*?)" (\d+) - "(.*?)" "(.*?)"'
@@ -52,21 +63,21 @@ for line in f:
 
      m = re.match(regex, line)
      if m:
-         print line
-         print m.groups()
-         print "-----"
+         strdate_no_utc = m.group(2).split()[0]
+         # m.group(2) '31/Jul/2014:16:16:12 +0100'
+         # UTC offset gives problems
+         date_no_utc = datetime.datetime.strptime(strdate_no_utc, "%d/%b/%Y:%H:%M:%S")   # '31/Jul/2014:16:16:12 +0100'
 
-         lh = LinkHistory()
-         lh.link = Link.objects.all()[0]
-         lh.when = datetime.datetime.now()
-         lh.ip = m.group(1)  #"66.66.66.66"
-         lh.save()
-
-     ##else:
-     #    print "---"
-     #print "========================="
+         if when_was_added_last_log < date_no_utc:
+            try:
+                tmplink =  Link.objects.get(uuid= m.group(4))
+                lh = LinkHistory()
+                #print tmplink
+                lh.link = tmplink
+                lh.when= date_no_utc
+                lh.ip = m.group(1)   #"66.66.66.66"
+                lh.save()
+            except:
+                pass
 
 f.close()
-
-
-print "works"
