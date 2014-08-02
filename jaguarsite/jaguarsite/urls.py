@@ -6,11 +6,14 @@ admin.autodiscover()
 from jaguar import views
 
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     # Examples:
     # url(r'^$', 'jaguarsite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', 'jaguar.views.index', name='index'),
-    url(r'^jg/ReloadArchives$', 'jaguar.views.ReloadArchives',name='ReloadArchives'),
+    url(r'^jg/ReloadArchives$',
+        'jaguar.views.ReloadArchives',
+        name='ReloadArchives'),
     url(r'^admin/', include(admin.site.urls)),
-)
+    )

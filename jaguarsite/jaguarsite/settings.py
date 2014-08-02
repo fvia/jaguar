@@ -1,10 +1,11 @@
-# jaguar settings
-
 JAGUAR_FILES = '/srv/jaguar/files/'
 JAGUAR_LINKS = '/srv/jaguar/links/'
-JAGUAR_SITE  = 'download.efit-v.com/'    # used for building the url of links
 
-STATIC_ROOT = '/srv/jaguar/static/'  # remember to run manage.py collectstatic
+# used for building the url of links
+JAGUAR_SITE = 'download.efit-v.com/'
+
+# remember to run manage.py collectstatic
+STATIC_ROOT = '/srv/jaguar/static/'
 
 """
 Django settings for jaguarsite project.
@@ -20,7 +21,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-TEMPLATE_DIRS = [os.path.join(BASE_DIR,'templates')]
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -88,7 +89,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-#USE_TZ = True
+# USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -101,5 +102,3 @@ try:
     from local_settings import *
 except ImportError:
     pass
-
-

@@ -12,4 +12,7 @@ def index(request):
 
 def ReloadArchives(request):
     tools.register_Archives()
-    return HttpResponse(" Reload ....  Done <BR>  <a href='/jaguar/admin'> Back to Jaguar</a> ")
+    return HttpResponse(
+        " Reload ....  Done <BR> "
+        " <a href='/jaguar/admin'> Back to Jaguar</a> "
+        )
