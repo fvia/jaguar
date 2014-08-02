@@ -6,11 +6,21 @@ from jaguar.models import Customer, Archive, Link, LinkHistory
 
 admin.site.register(Customer)
 
-admin.site.register(Archive)
+
+
+class ArchiveAdmin(admin.ModelAdmin):
+    readonly_fields = ('filename','status',)
+
+    def has_add_permission(self, request):
+        return False
+
+admin.site.register(Archive,ArchiveAdmin)
+
 
 
 class LinkAdmin(admin.ModelAdmin):
-    fields = [ 'archive','customer','enabled']
+    readonly_fields = ('url',)
+    fields = [ 'url','archive','customer','enabled']
     list_display = ['archive','customer','enabled','url' ]
     list_filter = ['enabled']
 

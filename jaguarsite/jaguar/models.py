@@ -31,8 +31,10 @@ class Archive(models.Model):
 def ArchivePostDelete( sender, **kwargs):
     instance = kwargs.get('instance')
     full_name = os.path.join( JAGUAR_FILES ,instance.filename )
-    #print full_name
-    os.unlink( full_name   )
+    try:
+        os.unlink( full_name   )
+    except:
+        pass
 
 post_delete.connect( ArchivePostDelete ,Archive)
 
