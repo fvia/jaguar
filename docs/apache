@@ -1,0 +1,17 @@
+
+
+
+
+<VirtualHost *:80>
+        Alias /jaguar/static/ /srv/jaguar/static/
+        <Directory /srv/jaguar/static>
+        Require all granted
+        </Directory>
+
+        <Directory /srv/jaguar/jaguarsite/jaguarsite>
+        <Files wsgi.py>
+        Require all granted
+        </Files>
+        </Directory>
+
+</VirtualHost>
