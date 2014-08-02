@@ -1,5 +1,11 @@
+# httpd.conf  apache2.conf
+
+WSGIScriptAlias /jaguar /srv/jaguar/jaguarsite/jaguarsite/wsgi.py
+WSGIPythonPath  /srv/jaguar/jaguarsite:/srv/jaguar/ENV/lib/python2.7/site-packages
 
 
+
+#  site File
 
 
 <VirtualHost *:80>
@@ -13,5 +19,8 @@
         Require all granted
         </Files>
         </Directory>
+
+  #TODO   write a log configuration
+
 
 </VirtualHost>
