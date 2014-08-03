@@ -2,7 +2,6 @@ import os
 import os.path
 import uuid
 
-
 from django.db import models
 from django.db.models.signals import pre_init, post_init
 from django.db.models.signals import post_delete, post_save
@@ -10,27 +9,23 @@ from django.db.models.signals import post_delete, post_save
 from jaguarsite.settings import JAGUAR_FILES, JAGUAR_LINKS, JAGUAR_SITE
 
 
-def strUuid():
-    return str(uuid.uuid4())
-
-# ###############################
-
-
 class Customer(models.Model):
+    """
+    """
     name = models.CharField(max_length=200)
 
     def __unicode__(self):
         return self.name
 
-# ################################
-
 
 class Archive(models.Model):
+    """
+    """
     filename = models.CharField(max_length=200)
     status = models.CharField(max_length=50, default='')  # 'OK' | 'NO FILE'
 
     def __unicode__(self):
-        return "{0} - {1}".format(self.filename, self.status)
+        return "{0}".format(self.filename)
 
 
 def ArchivePostDelete(sender, **kwargs):
@@ -43,10 +38,10 @@ def ArchivePostDelete(sender, **kwargs):
 
 post_delete.connect(ArchivePostDelete, Archive)
 
-# ################################
-
 
 class Link(models.Model):
+    """
+    """
     archive = models.ForeignKey(Archive)
     customer = models.ForeignKey(Customer)
     enabled = models.BooleanField(default=True)
@@ -86,10 +81,17 @@ def LinkPostSave(sender, **kwargs):
     instance = kwargs.get('instance')
     source = os.path.join(JAGUAR_FILES, instance.archive.filename)
     link_name = os.path.join(JAGUAR_LINKS, instance.name_link())
-    if not os.path.exists(link_name):
-        os.symlink(source, link_name)
-        instance.status = 'OK'
-        instance.save()
+
+    if instance.enabled:
+        if not os.path.exists(link_name):
+            os.symlink(source, link_name)
+            instance.status = 'OK'
+            instance.save()
+    else:
+        try:
+            os.unlink(link_name)
+        except:
+            pass
 
 
 def LinkPostDelete(sender, **kwargs):
@@ -104,10 +106,10 @@ def LinkPostDelete(sender, **kwargs):
 post_delete.connect(LinkPostDelete, Link)
 post_save.connect(LinkPostSave, Link)
 
-# ##################################################
-
 
 class LinkHistory(models.Model):
+    """
+    """
     link = models.ForeignKey(Link)
     when = models.DateTimeField(db_index=True)
     ip = models.GenericIPAddressField()
@@ -115,4 +117,8 @@ class LinkHistory(models.Model):
     def __unicode__(self):
         return "{} {}".format(self.when, self.ip)
 
-# ################# git@github.com:fvia/jaguar.git
+    def FileName(self):
+        return self.link.archive.filename
+
+    def CustomerName(self):
+        return self.link.customer.name
