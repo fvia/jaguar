@@ -24,7 +24,7 @@ import datetime
 """
 
 from jaguar.models import Archive, Link, LinkHistory
-print Archive.objects.all()
+#print Archive.objects.all()
 
 
 # Date of latest log added
@@ -35,10 +35,8 @@ except:
     when_was_added_last_log = datetime.datetime(2000, 1, 1)
 
 
-print "===="
-print when_was_added_last_log
-print type(when_was_added_last_log)
-print "===="
+#print "Last log added: {} ".format( when_was_added_last_log)
+
 """
 Reading from the apache logs if finds downloads from  /links/*
 stores in a database time, ip using as a key the uuid in the file name
@@ -76,12 +74,13 @@ for line in f:
             try:
                 tmplink = Link.objects.get(uuid=m.group(4))
                 lh = LinkHistory()
-                # print tmplink
+                print tmplink
                 lh.link = tmplink
                 lh.when = date_no_utc
                 lh.ip = m.group(1)   # "66.66.66.66"
                 lh.save()
             except:
+                print "except"
                 pass
 
 f.close()
