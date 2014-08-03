@@ -2,7 +2,7 @@ JAGUAR_FILES = '/srv/jaguar/files/'
 JAGUAR_LINKS = '/srv/jaguar/links/'
 
 # used for building the url of links
-JAGUAR_SITE = 'download.efit-v.com/'
+JAGUAR_SITE = 'download.efit-v.com'
 
 # remember to run manage.py collectstatic
 STATIC_ROOT = '/srv/jaguar/static/'
