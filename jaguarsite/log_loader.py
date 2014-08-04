@@ -53,9 +53,12 @@ LOG = '/var/log/apache2/access.log'
 #     'lotdd-code.2a0f4cdb-813a-44d3-b29f-19d0a71b5e9b.zip')
 # no volem nom del fitxer ni extensio nomes uuid
 
-regex = '([(\d\.)]+) - - \[(.*?)\] "GET /links/(.*?)\.(.*?)\.(.*?) HTTP'
+#regex = '([(\d\.)]+) - - \[(.*?)\] "GET /links/(.*?)\.(.*?)\.(.*?) HTTP'
 # ('127.0.0.1', '01/Aug/2014:10:14:01 +0100', 'lotdd-code',
 #     '2a0f4cdb-813a-44d3-b29f-19d0a71b5e9b', 'zip')
+# fails with points in the file name
+
+regex = '([(\d\.)]+) - - \[(.*?)\] "GET /links/.*?(........-....-....-....-............).*? HTTP'
 
 
 f = open(LOG)
@@ -72,7 +75,7 @@ for line in f:
 
         if when_was_added_last_log < date_no_utc:
             try:
-                tmplink = Link.objects.get(uuid=m.group(4))
+                tmplink = Link.objects.get(uuid=m.group(3))
                 lh = LinkHistory()
                 print tmplink
                 lh.link = tmplink
