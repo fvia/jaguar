@@ -10,7 +10,7 @@ from jaguarsite.settings import JAGUAR_FILES
 
 
 def index(request):
-    return HttpResponse(" Nothing to do here ")
+    return HttpResponse("")
 
 
 def ReloadArchives(request):
