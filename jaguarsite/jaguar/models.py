@@ -114,6 +114,11 @@ class LinkHistory(models.Model):
     when = models.DateTimeField(db_index=True)
     ip = models.GenericIPAddressField()
 
+    # the following field will be filled by the log_info script
+    country = models.CharField(max_length=200, default='')
+    city = models.CharField(max_length=200, default='')
+    dns = models.CharField(max_length=200, default='')
+
     def __unicode__(self):
         return "{} {}".format(self.when, self.ip)
 

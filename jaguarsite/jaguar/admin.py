@@ -62,8 +62,8 @@ admin.site.register(Link, LinkAdmin)
 
 # LinkHistory
 class LinkHistoryAdmin(admin.ModelAdmin):
-    list_display = ['when', 'ip', 'FileName', 'CustomerName']
-    readonly_fields = ('link', 'when', 'ip', )
+    list_display = ['when', 'FileName', 'CustomerName', 'country','city','dns','ip',]
+    readonly_fields = ('link','when', 'FileName', 'CustomerName', 'country','city','dns','ip', )
 
     def has_add_permission(self, request):
         return False
