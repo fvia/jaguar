@@ -38,7 +38,7 @@ admin.site.register(Archive, ArchiveAdmin)
 class LinkLinkHistoryInline(admin.TabularInline):
     model = LinkHistory
     extra = 0
-    readonly_fields = ('link', 'when', 'ip', )
+    readonly_fields = ('country', 'city', 'dns', 'link', 'when', 'ip', )
 
     def has_add_permission(self, request):
         return False

@@ -21,7 +21,7 @@ class Customer(models.Model):
 class Archive(models.Model):
     """
     """
-    filename = models.CharField(max_length=200)
+    filename = models.CharField(max_length=200, verbose_name='File Name')
     status = models.CharField(max_length=50, default='')  # 'OK' | 'NO FILE'
 
     def __unicode__(self):
@@ -110,6 +110,9 @@ post_save.connect(LinkPostSave, Link)
 class LinkHistory(models.Model):
     """
     """
+    class Meta:
+        verbose_name_plural = "Link Histories"
+
     link = models.ForeignKey(Link)
     when = models.DateTimeField(db_index=True)
     ip = models.GenericIPAddressField()
@@ -125,5 +128,9 @@ class LinkHistory(models.Model):
     def FileName(self):
         return self.link.archive.filename
 
+    FileName.short_description = "Archive"
+
     def CustomerName(self):
         return self.link.customer.name
+
+    CustomerName.short_description = "Customer"
