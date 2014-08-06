@@ -1,1 +1,3 @@
-* * * * * /srv/jaguar/ENV/bin/python  /srv/jaguar/jaguarsite/log_loader.py
+
+*/2 * * * * /srv/jaguar/ENV/bin/python  /srv/jaguar/jaguarsite/log_loader.py                                                                │ * 
+*/10 * * * * /srv/jaguar/ENV/bin/python  /srv/jaguar/jaguarsite/log_info.py
