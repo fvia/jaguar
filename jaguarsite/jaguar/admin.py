@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from jaguar.models import Customer, Archive, Link, LinkHistory
 
 
@@ -62,8 +61,10 @@ admin.site.register(Link, LinkAdmin)
 
 # LinkHistory
 class LinkHistoryAdmin(admin.ModelAdmin):
-    list_display = ['when', 'FileName', 'CustomerName', 'country','city','dns','ip',]
-    readonly_fields = ('link','when', 'FileName', 'CustomerName', 'country','city','dns','ip', )
+    list_display = ['when', 'FileName', 'CustomerName',
+                    'country', 'city', 'dns', 'ip', ]
+    readonly_fields = ('link', 'when', 'FileName', 'CustomerName',
+                       'country', 'city', 'dns', 'ip',)
 
     def has_add_permission(self, request):
         return False

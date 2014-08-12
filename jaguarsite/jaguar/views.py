@@ -22,5 +22,5 @@ def ReloadArchives(request):
         " Reload .... <BR>"
         " {:,.0f} MB available <BR>"
         " Done <BR> "
-        " <a href='/jaguar/admin'> Back to Jaguar</a> ".format( megabytes )
+        " <a href='/jaguar/admin'> Back to Jaguar</a> ".format(megabytes)
         )
