@@ -1,0 +1,5 @@
+    <ul>
+    {% for ar in archives_list %}
+        <li><a href="/polls/{{ question.id }}/">{{ ar.description }}</a></li>
+    {% endfor %}
+    </ul>

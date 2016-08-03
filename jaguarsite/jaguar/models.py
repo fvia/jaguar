@@ -23,6 +23,9 @@ class Archive(models.Model):
     """
     filename = models.CharField(max_length=200, verbose_name='File Name')
     status = models.CharField(max_length=50, default='')  # 'OK' | 'NO FILE'
+    description = models.CharField(max_length=200, default='', verbose_name='Description')
+    notes = models.TextField(max_length=2000, default='')   
+
 
     def __unicode__(self):
         return "{0}".format(self.filename)

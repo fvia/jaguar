@@ -21,7 +21,7 @@ class ArchiveLinkInline(admin.TabularInline):
 
 
 class ArchiveAdmin(admin.ModelAdmin):
-    list_display = ('filename', 'status', )
+    list_display = ('filename', 'status', 'description','notes' )
     # list_display_links = None  not allowed until dh 1.7
     readonly_fields = ('filename', 'status', )
     inlines = [ArchiveLinkInline]
