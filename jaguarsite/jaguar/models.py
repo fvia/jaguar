@@ -25,10 +25,15 @@ class Archive(models.Model):
     status = models.CharField(max_length=50, default='')  # 'OK' | 'NO FILE'
     description = models.CharField(max_length=200, default='', verbose_name='Description')
     notes = models.TextField(max_length=2000, default='')   
+    show_in_downloads = models.BooleanField(default=False) 
 
 
     def __unicode__(self):
         return "{0}".format(self.filename)
+
+
+def ArchivePostSave(sender, **kwargs):
+    pass
 
 
 def ArchivePostDelete(sender, **kwargs):
@@ -39,6 +44,7 @@ def ArchivePostDelete(sender, **kwargs):
     except:
         pass
 
+post_save.connect(ArchivePostSave, Archive)
 post_delete.connect(ArchivePostDelete, Archive)
 
 

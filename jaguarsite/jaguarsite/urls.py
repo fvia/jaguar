@@ -22,6 +22,11 @@ urlpatterns = patterns(
 
 
     url(r'^jaguar/downloads/$', 'jaguar.views.Downloads',name='Downloads'), #needed for runserver
+    url(r'^downloads/$', 'jaguar.views.Downloads',name='Downloads'),
 
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'  } ),    
+    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/accounts/login'  } ),    
 
+    # we are coming here after a sucessfull login
+    url(r'^profiles/home', 'jaguar.views.home' ),    
     )

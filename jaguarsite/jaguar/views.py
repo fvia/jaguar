@@ -2,7 +2,9 @@ import os
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.template import RequestContext, loader
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -28,8 +30,9 @@ def ReloadArchives(request):
         )
 
 
+@login_required
 def Downloads(request):
-    archives = Archive.objects.all()
+    archives = Archive.objects.filter(show_in_downloads=True)
     template = loader.get_template('downloads.html')
     context = RequestContext(
         request, 
@@ -37,4 +40,7 @@ def Downloads(request):
     )
     return HttpResponse(template.render(context))
 
-    
+
+@login_required
+def home(request):
+    return HttpResponseRedirect( '/downloads' )

@@ -1,3 +1,6 @@
+LOGIN_REDIRECT_URL = '/profiles/home'
+
+
 JAGUAR_FILES = '/srv/jaguar/files/'
 JAGUAR_LINKS = '/srv/jaguar/links/'
 
