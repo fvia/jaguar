@@ -30,6 +30,14 @@ def register_Archives():
         a.status = 'OK'
         a.save()
 
+    missing_files = set_files_on_archives - set_files_on_folder
+    for f in missing_files:
+        a = Archive.objects.get(filename=f)
+        a.status = 'MISSING'
+        a.save()      
+
+
+
 
 def status_Archives():
     """

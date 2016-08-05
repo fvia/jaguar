@@ -12,7 +12,7 @@
   <tr>
   	<td style="font-size: 20px" > Visionmetric downloads <td>
   	<td style="float: right;"> 
-        <a id="logout"  href="/accounts/logout/"  >logout</a>
+        <a id="logout"  href="/jaguar/accounts/logout/"  >logout</a>
     </td>
   </tr>
 </table>
@@ -25,10 +25,8 @@
     		border-color: orange; border-width: 2px; border-style: solid;  " 
 
     		>
-        <a href="/files/{{ ar.filename }}/">{{ ar.description }}</a>
-        <p>
-        {{ ar.notes }}
-        </p>
+        <a href="/files/{{ ar.filename }}">{{ ar.description }}</a>
+        <pre>{{ar.notes}}</pre>
         </div>
     {% endfor %}
     </ul>

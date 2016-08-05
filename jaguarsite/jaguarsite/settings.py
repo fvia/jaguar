@@ -1,4 +1,4 @@
-LOGIN_REDIRECT_URL = '/profiles/home'
+LOGIN_REDIRECT_URL = '/jaguar/profiles/home'
 
 
 JAGUAR_FILES = '/srv/jaguar/files/'

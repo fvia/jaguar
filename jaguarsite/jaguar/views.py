@@ -43,4 +43,4 @@ def Downloads(request):
 
 @login_required
 def home(request):
-    return HttpResponseRedirect( '/downloads' )
+    return HttpResponseRedirect( '/jaguar/downloads' )
