@@ -143,3 +143,23 @@ class LinkHistory(models.Model):
         return self.link.customer.name
 
     CustomerName.short_description = "Customer"
+
+
+class TrialKey(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Name')  
+    description = models.CharField(max_length=200, default='', verbose_name='Description')
+    v2c = models.TextField( verbose_name='Trial Key Text' )
+
+    def __unicode__(self):
+        return "{}".format(self.name)
+
+class TrialExtension(models.Model):
+    code = models.CharField(max_length=12, primary_key=True)
+    trialkey = models.ForeignKey(TrialKey)
+    applied = models.BooleanField(default=False) 
+    organization_user = models.CharField(max_length=12, verbose_name='Organization / User',default='')
+    history =  models.TextField( default='',blank = True);
+
+    def __unicode__(self):
+        return "({} {}) {}".format(self.code,self.trialkey,self.organization_user)
+    

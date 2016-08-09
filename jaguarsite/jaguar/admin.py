@@ -1,5 +1,5 @@
 from django.contrib import admin
-from jaguar.models import Customer, Archive, Link, LinkHistory
+from jaguar.models import Customer, Archive, Link, LinkHistory, TrialKey, TrialExtension
 
 
 # Customer
@@ -73,3 +73,18 @@ class LinkHistoryAdmin(admin.ModelAdmin):
 admin.site.register(LinkHistory, LinkHistoryAdmin)
 #    def has_change_permission(self, request):
 #        return False
+
+
+class TrialKeyAdmin(admin.ModelAdmin):
+    list_display = ['name','description']
+    
+
+admin.site.register(TrialKey, TrialKeyAdmin)
+
+
+class TrialExtensionAdmin(admin.ModelAdmin):
+    readonly_fields = ['history']
+    list_filter = ['applied']
+    
+
+admin.site.register(TrialExtension, TrialExtensionAdmin)

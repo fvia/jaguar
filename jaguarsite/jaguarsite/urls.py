@@ -29,4 +29,12 @@ urlpatterns = patterns(
 
     # we are coming here after a sucessfull login
     url(r'^profiles/home', 'jaguar.views.home' ),    
+
+    url(r'^jaguar/trialextension$', 'jaguar.views.TrialExtensionGet'), #needed for runserver
+    url(r'^trialextension$', 'jaguar.views.TrialExtensionGet'),
+
+    url(r'^jaguar/trialextensioninfo$', 'jaguar.views.TrialExtensionInfo'), #needed for runserver
+    url(r'^trialextensioninfo$', 'jaguar.views.TrialExtensionInfo'),
+
+
     )
