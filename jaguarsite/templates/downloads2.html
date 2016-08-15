@@ -1,0 +1,45 @@
+{% comment %}     
+downloads2   
+new template using the show_name field 
+with headers for description and notes
+{% endcomment %}     
+
+<head>
+	<title>Visiometric Downloads</title>
+	<style>
+		##logout { align: right; text-align: right; }	
+		##support { color: orange;  }
+	</style>
+</head>
+<body style="background-color: gainsboro;" >
+
+
+<table  style="width: 100%; font-family: courier; ">
+  <tr>
+  	<td style="font-size: 20px" > Visionmetric downloads <td>
+  	<td style="float: right;"> 
+        <a id="logout"  href="/jaguar/accounts/logout/"  >logout</a>
+    </td>
+  </tr>
+</table>
+
+
+{% if archives_list %}
+    
+    {% for ar in archives_list %}
+    	<div style="background-color:GhostWhite; color: Teal; padding: 6px; margin: 2px; 
+    		border-color: orange; border-width: 2px; border-style: solid;  " 
+
+    		>
+        <a href="/files/{{ ar.filename }}"><b>{{ ar.show_name }}</b></a>
+        <div><b> Description:</b> {{ar.description}} </div>
+        <div><b> Notes:</b>  {{ar.notes}} </div>
+        </div>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Archives are available.</p>
+{% endif %}
+
+
+</body>
