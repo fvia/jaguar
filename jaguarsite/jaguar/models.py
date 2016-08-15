@@ -26,7 +26,7 @@ class Archive(models.Model):
     description = models.CharField(max_length=200, default='', verbose_name='Description')
     notes = models.TextField(max_length=2000, default='')   
     show_in_downloads = models.BooleanField(default=False) 
-
+    show_name = models.CharField(max_length=200, default='', verbose_name='Show Name')
 
     def __unicode__(self):
         return "{0}".format(self.filename)

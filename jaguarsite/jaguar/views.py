@@ -34,7 +34,7 @@ def ReloadArchives(request):
 @login_required
 def Downloads(request):
     archives = Archive.objects.filter(show_in_downloads=True)
-    template = loader.get_template('downloads.html')
+    template = loader.get_template('downloads2.html')
     context = RequestContext(
         request, 
         {'archives_list': archives}
