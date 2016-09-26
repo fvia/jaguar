@@ -1,22 +1,24 @@
 import os
 import datetime
+import time
 
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.contrib.auth.decorators import login_required
+from jaguarsite.settings import JAGUAR_KEY_UPDATES
+
 
 # Create your views here.
 
 import tools
 from jaguarsite.settings import JAGUAR_FILES
-from jaguar.models import Archive, TrialExtension 
+from jaguar.models import Archive, TrialExtension, Customer
 
 
 def index(request):
     return HttpResponse("")
-
 
 def ReloadArchives(request):
     tools.register_Archives()
@@ -29,6 +31,44 @@ def ReloadArchives(request):
         " Done <BR> "
         " <a href='/jaguar/admin'> Back to Jaguar</a> ".format(megabytes)
         )
+
+
+def LoadKeyUpdates(request):
+    customers = Customer.objects.all()
+    strCustomerOptions =""
+    for c in customers:
+        strCustomerOptions +=  '<option value="{}">{}</option>'.format( c.name,c.name)
+
+    strFiles = '<table style="border: 1px black solid;" ><tr><th>V2C Files in folder {} </th></tr>'.format(JAGUAR_KEY_UPDATES)
+    files = os.listdir(JAGUAR_KEY_UPDATES)
+    for f in files:
+        if f.endswith('.v2c'):
+            strFiles += '<tr><td>{}</td></tr>'.format(f)
+    
+    strFiles += "</table>" 
+
+    return HttpResponse(
+        "<H1> Key Updates</H1> "
+        ""
+        "<a href='/jaguar/admin'> Back to Jaguar</a> "
+        "<a href='/jaguar/admin'> Delete All Files </a> "+
+        
+        strFiles+
+
+        "<p> 'Load' will read every V2C file, create a LicenseKey record if not exist, "
+        "and create a KeyUpdate record, after thar the  V2C file will be deleted  "
+        "</p>"
+        "<form>"
+        'Customer: <select name="customers">'+
+        strCustomerOptions+
+        '</select>'
+        '<input type="submit" value="Load"> '
+        "</form>"    
+        
+
+        )
+
+
 
 
 @login_required
@@ -84,3 +124,23 @@ def TrialExtensionInfo(request):
                         request.GET['machine_name'] + "#"+request.GET['info']  
     res[0].save()
     return HttpResponse("OK#DONE")
+
+
+def LicenseUpdateGet(request):
+    time.sleep(12)
+    if 'key_id' not in request.GET or \
+       'machine_name' not in request.GET or \
+       'release' not in request.GET :
+        return HttpResponse("ERROR#bad request")    
+ 
+    return HttpResponse("OK#"+"work in progress")
+
+
+def LicenseUpdateInfo(request):
+    if 'key_id' not in request.GET or \
+       'machine_name' not in request.GET or \
+       'release' not in request.GET or \
+       'info' not in request.GET :
+        return HttpResponse("ERROR#bad request")    
+ 
+    return HttpResponse("OK#"+"work in progress")

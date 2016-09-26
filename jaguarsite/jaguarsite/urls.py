@@ -13,9 +13,13 @@ urlpatterns = patterns(
     # url(r'^$', 'jaguarsite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', 'jaguar.views.index', name='index'),
+
     url(r'^jg/ReloadArchives$','jaguar.views.ReloadArchives',name='ReloadArchives'),
-    
     url(r'^jaguar/jg/ReloadArchives$','jaguar.views.ReloadArchives',name='ReloadArchives'),
+
+    url(r'^jg/LoadKeyUpdates$','jaguar.views.LoadKeyUpdates',name='LoadKeyUpdates'),
+    url(r'^jaguar/jg/LoadKeyUpdates$','jaguar.views.LoadKeyUpdates',name='LoadKeyUpdates'),
+
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^jaguar/admin/', include(admin.site.urls)), #needed for runserver
@@ -37,4 +41,8 @@ urlpatterns = patterns(
     url(r'^trialextensioninfo$', 'jaguar.views.TrialExtensionInfo'),
 
 
+    url(r'^jaguar/licenseupdate$', 'jaguar.views.LicenseUpdateGet'), #needed for runserver
+    url(r'^licenseupdate$', 'jaguar.views.LicenseUpdateGet'),
+
+ 
     )
