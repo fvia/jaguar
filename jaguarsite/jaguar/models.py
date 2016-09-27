@@ -1,6 +1,7 @@
 import os
 import os.path
 import uuid
+from datetime import datetime
 
 from django.db import models
 from django.db.models.signals import pre_init, post_init
@@ -153,6 +154,8 @@ class TrialKey(models.Model):
     def __unicode__(self):
         return "{}".format(self.name)
 
+
+
 class TrialExtension(models.Model):
     code = models.CharField(max_length=12, primary_key=True)
     trialkey = models.ForeignKey(TrialKey)
@@ -162,4 +165,25 @@ class TrialExtension(models.Model):
 
     def __unicode__(self):
         return "({} {}) {}".format(self.code,self.trialkey,self.organization_user)
+
+
+class LicenseKey(models.Model):
+    key_id = models.CharField(max_length=50,  primary_key=True)
+    customer = models.ForeignKey(Customer)
+    label =  models.CharField( max_length=50, default='',blank = True);    
+    history =  models.TextField( default='',blank = True);
+    modified = models.DateTimeField(auto_now=True,default=datetime.now())
+
+    def __unicode__(self):
+        return "{} [{}] {}".format(self.key_id,self.label,self.customer.name)
+
     
+
+class LicenseKeyUpdate(models.Model):
+    time_uploaded = models.DateTimeField(auto_now_add = True)
+    key_id = models.ForeignKey(LicenseKey)
+    v2c = models.TextField( verbose_name='Key Update Text' )    
+    applied = models.BooleanField(default=False) 
+
+    def __unicode__(self):
+        return "{} - {}".format( self.time_uploaded.strftime('%d/%m/%y') , self.key_id)

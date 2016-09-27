@@ -3,6 +3,7 @@ LOGIN_REDIRECT_URL = '/jaguar/profiles/home'
 
 JAGUAR_FILES = '/srv/jaguar/files/'
 JAGUAR_LINKS = '/srv/jaguar/links/'
+JAGUAR_KEY_UPDATES = '/srv/jaguar/key_updates/'
 
 # used for building the url of links
 JAGUAR_SITE = 'download.efit-v.com'

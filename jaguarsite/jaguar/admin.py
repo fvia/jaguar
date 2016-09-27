@@ -1,6 +1,6 @@
 from django.contrib import admin
 from jaguar.models import Customer, Archive, Link, LinkHistory, TrialKey, TrialExtension
-
+from jaguar.models import LicenseKey, LicenseKeyUpdate 
 
 # Customer
 admin.site.register(Customer)
@@ -88,3 +88,17 @@ class TrialExtensionAdmin(admin.ModelAdmin):
     
 
 admin.site.register(TrialExtension, TrialExtensionAdmin)
+
+
+class LicenseKeyAdmin(admin.ModelAdmin):
+    list_display = ( 'key_id', 'label','customer', 'modified' )
+ 
+admin.site.register(LicenseKey, LicenseKeyAdmin)
+
+
+class LicenseKeyUpdateAdmin(admin.ModelAdmin):
+    list_display = ( 'time_uploaded' , 'key_id' ,'applied' )
+ 
+admin.site.register(LicenseKeyUpdate, LicenseKeyUpdateAdmin)
+
+
