@@ -69,8 +69,7 @@ def LoadKeyUpdates(request):
     if 'customers' in request.GET: 
         LoadStuff(request)
 
-
-    customers = Customer.objects.all()
+    customers = Customer.objects.order_by('name')
     strCustomerOptions =""
     for c in customers:
         strCustomerOptions +=  '<option value="{}">{}</option>'.format( c.name,c.name)
