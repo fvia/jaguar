@@ -203,7 +203,6 @@ def LicenseUpdateInfo(request):
        'info' not in request.GET :
         return HttpResponse("BAD_REQUEST#bad request")    
  
-    print "hola"
     code = request.GET['key_id']
     kus =  LicenseKeyUpdate.objects.filter(key_id = code).order_by('-time_uploaded')
     if len(kus) == 0:
@@ -211,6 +210,10 @@ def LicenseUpdateInfo(request):
     ku = kus[0]  
     key =  ku.key_id
 
+    if request.GET['info'] == 'StatusOk':
+        ku.applied = True
+        ku.save()
+	
     key.history += str(datetime.datetime.now()) +"#INFO#"+\
                     request.GET['machine_name'] + "#"+request.GET['release'] +\
                     "#"+request.GET['info']+"\n"
