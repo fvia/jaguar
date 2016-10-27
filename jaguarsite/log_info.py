@@ -39,6 +39,7 @@ geoip = GeoIP(path=settings.GEOIP_PATH,
               )
 
 for i in items:
+    print i
     if not i.dns:
         i.dns = socket.gethostbyaddr(i.ip)[0]
     if not i.city:

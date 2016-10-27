@@ -31,6 +31,7 @@ Reading from the apache logs if finds downloads from  /links/*
 stores in a database time, ip using as a key the uuid in the file name
 """
 LOG = '/var/log/apache2/access.log'
+#LOG = '/var/log/apache2/other_vhosts_access.log'
 
 # regex = '([(\d\.)]+) - - \[(.*?)\] "(.*?)" (\d+) - "(.*?)" "(.*?)"'
 # regex = '([(\d\.)]+) - - \[(.*?)\] "(.*?)"'
@@ -55,6 +56,9 @@ for line in f:
 
     m = re.match(regex, line)
     if m:
+
+
+	print "MATCH " + line
         strdate_no_utc = m.group(2).split()[0]
         # m.group(2) '31/Jul/2014:16:16:12 +0100'
         # UTC offset gives problems
